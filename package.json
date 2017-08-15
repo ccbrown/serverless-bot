@@ -1,0 +1,13 @@
+{
+    "name": "serverless-bot",
+    "description": "An example serverless Slack / Mattermost bot.",
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ccbrown/serverless-bot.git"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "serverless-python-requirements": "*"
+    }
+}

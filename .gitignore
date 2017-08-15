@@ -1,0 +1,4 @@
+/.requirements
+/.serverless
+/node_modules
+*.pyc

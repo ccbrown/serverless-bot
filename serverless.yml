@@ -1,0 +1,39 @@
+service: serverless-bot
+
+provider:
+  name: aws
+  runtime: python2.7
+  memorySize: 128
+  iamRoleStatements:
+    - Effect: Allow
+      Action: lex:*
+      Resource: '*'
+
+package:
+  include:
+    - intents/**
+
+functions:
+  cloudformation:
+    handler: cloudformation.lambda_handler
+  webhook:
+    environment:
+      STACK_NAME:
+        Ref: AWS::StackName
+    events:
+      - http: POST webhook
+    handler: webhook.lambda_handler
+
+plugins:
+  - serverless-python-requirements
+
+resources:
+  Resources:
+    Bot:
+      Type: Custom::Bot
+      Properties:
+        ServiceToken:
+          Fn::GetAtt: CloudformationLambdaFunction.Arn
+        Random: ${file(serverless.js):random}
+        StackName:
+          Ref: AWS::StackName
